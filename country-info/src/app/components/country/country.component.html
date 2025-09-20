@@ -1,0 +1,122 @@
+<div class="country-container" *ngIf="countryCode">
+  <div class="header-section">
+    <button class="back-btn" (click)="goBack()" (keyup.enter)="goBack()">
+      <img src="assets/icons/arrow.svg" alt="Arrow" class="icon-img" />
+      Back to Home
+    </button>
+
+    <h1 class="country-title" *ngIf="countryInfo">{{ countryInfo.commonName || countryCode }}</h1>
+    <h1 class="country-title" *ngIf="!countryInfo">{{ countryCode }}</h1>
+  </div>
+
+  <div class="card country-info-card" *ngIf="countryInfo && countryInfo.commonName">
+    <h2 class="card-title">Country Information</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Common Name:</strong>
+        <span>{{ countryInfo.commonName }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Official Name:</strong>
+        <span>{{ countryInfo.officialName }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Country Code:</strong>
+        <span>{{ countryInfo.countryCode }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Region:</strong>
+        <span>{{ countryInfo.region }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="countryInfo.borders && countryInfo.borders.length > 0" class="borders-section">
+      <h3>
+        Neighboring Countries
+        <img src="assets/icons/globe.svg" alt="Globe" class="icon-img" />
+      </h3>
+      <div class="neighbors-grid">
+        <div
+          *ngFor="let border of countryInfo.borders"
+          class="neighbor-card"
+          (click)="navigateToCountry(border.countryCode)"
+          (keyup.enter)="navigateToCountry(border.countryCode)"
+          tabindex="0"
+        >
+          <div class="neighbor-flag">
+            <img src="assets/icons/flag.svg" alt="Flag" class="icon-img" />
+          </div>
+          <h4>{{ border.commonName }}</h4>
+          <p>{{ border.countryCode }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card year-selection-card">
+    <h2 class="card-title">
+      Select Year for Holidays
+      <img src="assets/icons/calendar.svg" alt="Calendar" class="icon-img" />
+    </h2>
+    <div class="year-buttons">
+      <button
+        *ngFor="let year of availableYears"
+        class="year-button"
+        [class.active]="selectedYear === year"
+        (click)="selectYear(year)"
+      >
+        {{ year }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card holidays-card">
+    <h2 class="card-title">
+      Public Holidays {{ selectedYear }}
+      <img src="assets/icons/confetti.svg" alt="Confetti" class="icon-img" />
+    </h2>
+    <p class="holidays-subtitle" *ngIf="holidays.length > 0">
+      {{ holidays.length }} holidays found
+    </p>
+
+    <div *ngIf="loadingHolidays" class="loading">
+      <div class="spinner"></div>
+      <p>Loading holidays...</p>
+    </div>
+
+    <div *ngIf="!loadingHolidays && holidays.length === 0" class="no-holidays">
+      <span class="no-holidays-icon">
+        <img src="assets/icons/calendar.svg" alt="Calendar" class="icon-img" />
+        <img src="assets/icons/close.svg" alt="Close" class="icon-img" />
+      </span>
+      <p>No holidays found for {{ selectedYear }}</p>
+    </div>
+
+    <div *ngIf="!loadingHolidays && holidays.length > 0" class="holidays-list">
+      <div *ngFor="let holiday of holidays" class="holiday-card">
+        <div class="holiday-header">
+          <h3>{{ holiday.name }}</h3>
+          <span class="holiday-date">{{ holiday.date | date: 'fullDate' }}</span>
+        </div>
+
+        <div class="holiday-details">
+          <p *ngIf="holiday.localName !== holiday.name" class="local-name">
+            <strong>Local name:</strong> {{ holiday.localName }}
+          </p>
+
+          <div class="holiday-meta">
+            <span *ngFor="let type of holiday.types" class="holiday-tag holiday-type">
+              {{ type }}
+            </span>
+            <span *ngIf="holiday.global" class="holiday-tag holiday-global"> Global </span>
+            <span *ngIf="holiday.fixed" class="holiday-tag holiday-fixed"> Fixed Date </span>
+          </div>
+
+          <p *ngIf="holiday.launchYear" class="launch-year">
+            <small>Established: {{ holiday.launchYear }}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

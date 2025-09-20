@@ -1,0 +1,102 @@
+<div class="home-container">
+  <h1 class="page-title">Discover Countries & Holidays</h1>
+
+  <div class="search-section">
+    <div class="card">
+      <h2 class="card-title">Search Countries</h2>
+      <div class="search-wrapper">
+        <input
+          type="text"
+          class="search-input"
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          placeholder="Enter country name or code..."
+        />
+        <span class="search-icon"
+          ><img src="assets/icons/glass.svg" alt="Glass" class="icon-img"
+        /></span>
+      </div>
+
+      <div class="countries-list" *ngIf="filteredCountries.length > 0">
+        <div
+          *ngFor="let country of filteredCountries.slice(0, 10)"
+          class="country-item"
+          (click)="navigateToCountry(country.countryCode)"
+          (keyup.enter)="navigateToCountry(country.countryCode)"
+          tabindex="0"
+        >
+          <div class="country-name">{{ country.name }}</div>
+          <div class="country-code">{{ country.countryCode }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="searchTerm && filteredCountries.length === 0" class="no-results">
+        <span class="no-results-icon"
+          ><img src="assets/icons/close.svg" alt="Close" class="icon-img"
+        /></span>
+        <p>No countries found matching "{{ searchTerm }}"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="random-section">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Random Countries & Their Next Holiday</h2>
+        <button
+          class="refresh-btn"
+          (click)="loadRandomCountries()"
+          (keyup.enter)="loadRandomCountries()"
+          title="Refresh random countries"
+        >
+          <img src="assets/icons/restart.svg" alt="Restart" class="icon-img" />
+        </button>
+      </div>
+
+      <div *ngIf="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Loading random countries...</p>
+      </div>
+
+      <div class="random-countries-grid" *ngIf="!loading">
+        <div
+          *ngFor="let item of randomCountriesData"
+          class="country-card"
+          (click)="navigateToCountry(item.country.countryCode)"
+          (keyup.enter)="navigateToCountry(item.country.countryCode)"
+          tabindex="0"
+        >
+          <div class="country-flag">
+            <img src="assets/icons/globe.svg" alt="Globe" class="icon-img" />
+          </div>
+          <h3 class="country-title">{{ item.country.name }}</h3>
+          <p class="country-subtitle">{{ item.country.countryCode }}</p>
+
+          <div class="holiday-info" *ngIf="item.nextHoliday; else noHoliday">
+            <div class="holiday-icon">
+              <img src="assets/icons/confetti.svg" alt="Confetti" class="icon-img" />
+            </div>
+            <div class="holiday-details">
+              <p class="holiday-name">{{ item.nextHoliday.name }}</p>
+              <p class="holiday-date">{{ item.nextHoliday.date | date: 'fullDate' }}</p>
+              <div class="holiday-types">
+                <span *ngFor="let type of item.nextHoliday.types" class="holiday-type">{{
+                  type
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noHoliday>
+            <div class="no-holiday">
+              <span class="no-holiday-icon"
+                ><img src="assets/icons/calendar.svg" alt="Calendar" class="icon-img"
+              /></span>
+              <p>No upcoming holidays</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
