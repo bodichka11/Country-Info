@@ -1,27 +1,164 @@
-# CountryInfo
+# 🌍 Country Info
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Angular application that provides detailed information about countries, including their holidays and border information.  
+It features real-time search functionality and a random countries widget with upcoming holiday information.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🌟 Features
 
-## Code scaffolding
+### 🔎 Search Functionality
+- Real-time search as you type  
+- Search by country name or country code  
+- Displays up to 10 matching results  
+- Clear messaging when no results are found  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 🎲 Random Countries Widget
+- Loads 3 random countries on page load  
+- Displays the next upcoming holiday for each country  
+- Refresh button to load new random countries  
+- Handles cases where no upcoming holidays are available  
 
-## Build
+### 📅 Holiday Display
+- Chronologically sorted holidays  
+- Color-coded holiday types (Public, Global etc.)  
+- Shows establishment year when available  
+- Displays both English and local names  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## 🚀 Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Prerequisites
+- **Node.js** (version 18 or higher)  
+- **npm** or **yarn** package manager  
 
-## Running end-to-end tests
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/bodichka11/Country-Info.git
+cd country-info
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Install dependencies
+npm install
+```
 
-## Further help
+Environment Setup
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This project uses a .env file to configure the API URL. Follow these steps:
+
+Create a .env file in the project root:
+
+```bash
+API_URL=<api_url>
+```
+
+Generate environment.ts from .env:
+```bash
+npx ts-node set-env.ts
+```
+This will create src/environments/environment.ts with the API URL from .env.
+
+Start the development server:
+```bash
+npm start
+```
+The application will be available at http://localhost:4200
+
+Building
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the dist/ directory.
+
+## 🏗️ Project Structure
+
+```text
+country-info/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── country/     # Country detail view
+│   │   │   └── home/        # Main homepage with search & widget
+│   │   ├── models/          # TypeScript interfaces
+│   │   ├── services/        # API service layer
+│   │   └── styles/          # Global SCSS, themes
+│   ├── assets/              # Logos, flags, static images
+│   └── environments/        # Dev/Prod API configs
+├── angular.json             # Angular configuration
+├── package.json             # Dependencies and scripts
+└── tsconfig.json            # TypeScript configuration
+```
+
+🛠️ Technologies Used
+
+Angular 17 – Frontend framework
+
+TypeScript – Type-safe JavaScript
+
+SCSS – CSS preprocessor
+
+RxJS – Reactive programming
+
+Angular SSR – Server-side rendering
+
+ESLint & Prettier – Code quality and formatting
+
+📦 API Integration
+
+This application integrates with the Nager.Date API to fetch:
+
+Country information
+
+Public holidays
+
+Border country data
+
+🎨 Styling
+
+Component-scoped SCSS styles
+
+Responsive design principles
+
+Modern CSS features (Flexbox, Grid)
+
+Color-coded holiday types
+
+🧪 Testing & Linting
+
+Run tests:
+```bash
+npm test
+```
+
+Run linting:
+```bash
+npm run lint
+```
+
+Format code:
+```bash
+npm run format
+```
+
+🤝 Contributing
+
+Fork the project
+
+Create your feature branch:
+```bash
+git checkout -b feature/AmazingFeature
+```
+
+Commit your changes:
+```bash
+git commit -m "Add some AmazingFeature"
+```
+
+Push to the branch:
+```bash
+git push origin feature/AmazingFeature
+```
+
+Open a Pull Request
