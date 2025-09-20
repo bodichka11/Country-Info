@@ -97,6 +97,7 @@
   padding: 15px;
   background: $bg-light;
   border-radius: 8px;
+  border: 1px solid $primary-color;
   border-left: 4px solid $primary-color;
   display: flex;
   flex-direction: column;
@@ -249,7 +250,7 @@
 
 .holiday-card {
   background: linear-gradient(135deg, $bg-light 0%, $bg-white 100%);
-  border: 1px solid $bg-medium;
+  border: 1px solid $primary-color;
   border-left: 5px solid $primary-color;
   border-radius: 10px;
   padding: 20px;
